@@ -97,6 +97,12 @@ class MemoryCollector(diamond.collector.Collector):
                         memory_total = value
                     elif name in 'MemAvailable':
                         memory_available = value
+                    elif name in 'MemFree':
+                        memory_free = value
+                    elif name in 'Buffers':
+                        memory_buffers = value
+                    elif name in 'Cached':
+                        memory_cached = value
 
                     for unit in self.config['byte_unit']:
                         value = diamond.convertor.binary.convert(value=value,
@@ -118,6 +124,10 @@ class MemoryCollector(diamond.collector.Collector):
                 self.publish('PctUsed',
                              round(memory_used_percent, 2),
                              metric_type='GAUGE')
+            elif memory_total is not None and memory_available is None:
+                 memory_used_percent = 100 - (100*(memory_free + memory_buffers + memory_cached) / memory_total)
+                 self.publish('PctUsed', memory_used_percent, metric_type='GAUGE')
+
             return True
         else:
             if not psutil:
