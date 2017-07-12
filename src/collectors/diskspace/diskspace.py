@@ -195,8 +195,6 @@ class DiskSpaceCollector(diamond.collector.Collector):
                 name = name.replace('.', '_').replace('\\', '')
                 if name == '_':
                     name = 'root'
-                if name == '_tmp':
-                    name = 'tmp'
 
             if hasattr(os, 'statvfs'):  # POSIX
                 try:
