@@ -115,7 +115,7 @@ class MemoryCollector(diamond.collector.Collector):
                 memory_used_percent = Decimal(str(100.0 *
                                               memory_used /
                                               memory_total))
-                self.publish('MemUsedPercentage',
+                self.publish('PctUsed',
                              round(memory_used_percent, 2),
                              metric_type='GAUGE')
             return True
