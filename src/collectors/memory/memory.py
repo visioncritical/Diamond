@@ -97,6 +97,12 @@ class MemoryCollector(diamond.collector.Collector):
                         memory_total = value
                     elif name in 'MemAvailable':
                         memory_available = value
+                    elif name in 'MemFree':
+                        memory_free = value
+                    elif name in 'Buffers':
+                        memory_buffers = value
+                    elif name in 'Cached':
+                        memory_cached = value
 
                     for unit in self.config['byte_unit']:
                         value = diamond.convertor.binary.convert(value=value,
